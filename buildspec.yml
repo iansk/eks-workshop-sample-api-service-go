@@ -22,7 +22,7 @@ phases:
     commands:
       - curl -k -u "$TL_USER:$TL_PASS" --output ./twistcli "$TL_CONSOLE_URL/api/v1/util/twistcli"
       - chmod +x ./twistcli
-      - './twistcli images scan -address "$TL_CONSOLE_URL" -u $TL_USER -p $TL_PASS --vulnerability-threshold high "$REPOSITORY_URI:$TAG"'
+      - './twistcli images scan -address "$TL_CONSOLE_URL" -u $TL_USER -p $TL_PASS --vulnerability-threshold high --compliance-threshold high "$REPOSITORY_URI:$TAG"'
       - docker push $REPOSITORY_URI:$TAG
       - CREDENTIALS=$(aws sts assume-role --role-arn $EKS_KUBECTL_ROLE_ARN --role-session-name codebuild-kubectl --duration-seconds 900)
       - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
